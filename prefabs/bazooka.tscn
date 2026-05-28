@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://yd6p4eiec2q7"]
+
+[ext_resource type="Script" uid="uid://ds3e158heoydi" path="res://Scripts/gun.gd" id="1_fa13c"]
+[ext_resource type="PackedScene" uid="uid://blt3fo1ig7jue" path="res://prefabs/bullet.tscn" id="2_jnpnj"]
+[ext_resource type="Texture2D" uid="uid://crp6bk7aeri6a" path="res://sprites/Guns.png" id="3_0ba2a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmxlf"]
+
+[node name="bazooka" type="Node2D" unique_id=2075126474]
+script = ExtResource("1_fa13c")
+bullet_scene = ExtResource("2_jnpnj")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1057433504]
+position = Vector2(13, 0)
+texture = ExtResource("3_0ba2a")
+region_enabled = true
+region_rect = Rect2(6.1887217, 60.285637, 18.106747, 9.053375)
+
+[node name="Bullet_Marker" type="Marker2D" parent="Sprite2D" unique_id=1092172816]
+position = Vector2(6, -2)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1265379980]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=619280425]
+shape = SubResource("CircleShape2D_bmxlf")
+
+[node name="Timer" type="Timer" parent="." unique_id=1043825721]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
