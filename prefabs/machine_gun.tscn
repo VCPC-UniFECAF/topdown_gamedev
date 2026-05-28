@@ -9,10 +9,10 @@
 [node name="MachineGun" type="Node2D" unique_id=1042752284]
 script = ExtResource("1_gbncv")
 bullet_scene = ExtResource("2_xfcf6")
-fire_time = 0.1
-bullet_speed = 600.0
-damage = 5.0
-bullet_size = 2.0
+fire_time = 0.01
+bullet_speed = 400.0
+damage = 3.0
+bullet_size = 0.8
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1688212631]

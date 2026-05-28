@@ -9,6 +9,10 @@
 [node name="bazooka" type="Node2D" unique_id=2075126474]
 script = ExtResource("1_fa13c")
 bullet_scene = ExtResource("2_jnpnj")
+fire_time = 3.0
+bullet_speed = 45.0
+damage = 100.0
+bullet_size = 3.0
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1057433504]
