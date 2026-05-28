@@ -9,6 +9,9 @@
 [node name="rifle" type="Node2D" unique_id=616147476]
 script = ExtResource("1_44ms8")
 bullet_scene = ExtResource("2_gyk5b")
+fire_time = 0.1
+bullet_speed = 300.0
+bullet_size = 0.8
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=206117192]

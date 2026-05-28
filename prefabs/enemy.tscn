@@ -267,7 +267,6 @@ _data = {
 
 [node name="Enemy" type="Area2D" unique_id=1460481380 groups=["enemies"]]
 script = ExtResource("1_aivmq")
-drop_chance = 0.25
 drop_weapons = Array[PackedScene]([ExtResource("2_loot_pistol"), ExtResource("3_loot_shotgun"), ExtResource("4_loot_rifle"), ExtResource("5_loot_bazooka"), ExtResource("6_loot_mg")])
 metadata/_edit_group_ = true
 
