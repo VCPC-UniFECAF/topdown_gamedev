@@ -1,5 +1,8 @@
 extends Node2D
 
+signal all_waves_cleared
+signal wave_started(current_wave: int, total_waves: int)
+
 @export_category("Inimigo")
 @export var enemy_scene: PackedScene
 
@@ -45,27 +48,55 @@ func _collect_spawn_points() -> void:
 
 func _run_waves() -> void:
 	for wave_index in waves.size():
+		if not _is_spawner_active():
+			return
+
 		var wave := waves[wave_index]
 		if wave == null:
 			continue
 
+		wave_started.emit(wave_index + 1, waves.size())
+
 		var wave_enemies: Array = []
 		for enemy_index in wave.enemy_count:
+			if not _is_spawner_active():
+				return
+
 			wave_enemies.append(_spawn_enemy())
 			var is_last_enemy := enemy_index >= wave.enemy_count - 1
 			if not is_last_enemy and wave.spawn_interval > 0.0:
 				await get_tree().create_timer(wave.spawn_interval).timeout
+				if not _is_spawner_active():
+					return
 
 		await _wait_until_wave_cleared(wave_enemies)
+		if not _is_spawner_active():
+			return
 
 		var is_last_wave := wave_index >= waves.size() - 1
 		if not is_last_wave and wave.delay_after_wave > 0.0:
 			await get_tree().create_timer(wave.delay_after_wave).timeout
+			if not _is_spawner_active():
+				return
+
+	if _is_spawner_active():
+		all_waves_cleared.emit()
+
+
+func _is_spawner_active() -> bool:
+	return is_inside_tree() and is_instance_valid(self) and get_tree() != null
 
 
 func _wait_until_wave_cleared(wave_enemies: Array) -> void:
 	while _count_alive_enemies(wave_enemies) > 0:
-		await get_tree().process_frame
+		if not _is_spawner_active():
+			return
+
+		var tree := get_tree()
+		if tree == null:
+			return
+
+		await tree.process_frame
 
 
 func _count_alive_enemies(wave_enemies: Array) -> int:

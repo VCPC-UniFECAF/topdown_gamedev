@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
+signal player_died
+
 @onready var sprite = $AnimatedSprite2D
 
-var speed = 40
+var speed = 55
 var direction = Vector2.ZERO
 
 var is_alive = true
@@ -52,7 +54,6 @@ func die():
 	if is_alive:
 		is_alive = false
 		sprite.play("death")
-		await get_tree().create_timer(3.0).timeout
-		get_tree().reload_current_scene()
+		player_died.emit()
 		
 	pass
